@@ -1,0 +1,66 @@
+/* Basic layout */
+.rfi-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+/* Header styling */
+.rfi-table thead {
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 14px;
+}
+
+.rfi-table th, .rfi-table td {
+  border: 1px solid #ddd;
+  padding: 8px 10px;
+}
+
+.rfi-table th {
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Table cell styling */
+.rfi-table td {
+  font-size: 14px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Status color indicator (default red) */
+.status-indicator {
+  width: 14px;
+  height: 14px;
+  background-color: red; /* You can override this per status */
+  display: inline-block;
+  border-radius: 2px;
+  margin-right: 6px;
+}
+
+/* Link styling */
+.rfi-link {
+  color: #2a4b8d;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.rfi-link:hover {
+  text-decoration: underline;
+}
+
+.status-open {
+  background-color: red;
+}
+
+.status-closed {
+  background-color: green;
+}
+
+.status-pending {
+  background-color: orange;
+}
+
