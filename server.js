@@ -81,6 +81,11 @@ app.get('/health', (req, res) => {
   res.send('✅ Server is running');
 });
 
+app.get('/', (req, res) => {
+  res.send('✅ Backend is live and deployed on Heroku!');
+});
+
+
 app.listen(PORT, () => {
   console.log(`🚀 Backend running at http://localhost:${PORT}`);
 });
