@@ -15,10 +15,14 @@ function Dashboard() {
       return;
     }
 
+    const backendBaseUrl =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3001'
+        : 'https://procore-rfi-backend-eeefbdd22e44.herokuapp.com';
+
     const fetchRFIs = async () => {
       try {
-        console.log('📡 Fetching RFIs...');
-        const res = await fetch(`http://localhost:3001/rfis?companyId=${companyId}&projectId=${projectId}`);
+        const res = await fetch(`${backendBaseUrl}/rfis?companyId=${companyId}&projectId=${projectId}`);
         const data = await res.json();
 
         if (!Array.isArray(data)) {
@@ -27,7 +31,6 @@ function Dashboard() {
           return;
         }
 
-        console.log('✅ RFIs:', data);
         setRfis(data);
       } catch (err) {
         console.error('❌ Error fetching RFIs:', err);
@@ -39,9 +42,9 @@ function Dashboard() {
   }, []);
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <div className="dashboard-container">
       <h1>Request For Information (RFIs)</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       {rfis.length === 0 && !error && <p>🔄 Loading RFIs...</p>}
 
       {rfis.length > 0 && (
@@ -59,12 +62,8 @@ function Dashboard() {
             {rfis.map((rfi) => (
               <tr key={rfi.id}>
                 <td><span className="status-indicator" /></td>
-                <td>
-                  <a href="/" className="rfi-link">{rfi.id}</a>
-                </td>
-                <td>
-                  <a href="/" className="rfi-link">{rfi.subject}</a>
-                </td>
+                <td><a href="/" className="rfi-link">{rfi.id}</a></td>
+                <td><a href="/" className="rfi-link">{rfi.subject}</a></td>
                 <td>{rfi.ball_in_court || ''}</td>
                 <td>{rfi.due_date || ''}</td>
               </tr>
