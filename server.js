@@ -56,24 +56,26 @@ app.get('/rfis', async (req, res) => {
     return res.status(400).json({ error: 'Missing access token or companyId' });
   }
 
-  const rfiRes = await axios.get(`https://api.procore.com/rest/v1.0/projects/${projectId}/rfis`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Procore-Company-Id': companyId
-    }
-  });
+  try {
+    const rfiRes = await axios.get(`https://api.procore.com/rest/v1.0/projects/${projectId}/rfis`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Procore-Company-Id': companyId
+      }
+    });
 
-const rfisWithProjectId = rfiRes.data.map(rfi => ({
-  ...rfi,
-  project_id: projectId,
-}));
+    const rfisWithProjectId = rfiRes.data.map(rfi => ({
+      ...rfi,
+      project_id: projectId,
+    }));
 
-res.json(rfisWithProjectId);
-
-
-  console.log('✅ Returning mock RFIs');
-  res.json(mockRFIs);
+    res.json(rfisWithProjectId);
+  } catch (err) {
+    console.error('❌ Failed to fetch RFIs:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Failed to fetch RFIs' });
+  }
 });
+
 
 app.get('/health', (req, res) => {
   res.send('✅ Server is running');
