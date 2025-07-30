@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Dashboard.css'; // Make sure this file exists
+import './Dashboard.css';
 
 function Dashboard() {
   const [rfis, setRfis] = useState([]);
